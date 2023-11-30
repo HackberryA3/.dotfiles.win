@@ -42,6 +42,15 @@ if "%unins_xbox%"=="y" (
 	echo Skipping Xbox.
 )
 
+set /p ins_ps=Do you want to install the latest Powershell? (y/n) : 
+if "%ins_ps%"=="y" (
+	echo Installing Powershell...
+	powershell winget install Microsoft.PowerShell
+	echo Done.
+) else (
+	echo Skipping Powershell.
+)
+
 set /p ins_psmodule=Do you want to install Powershell Modules? (y/n) : 
 if "%ins_psmodule%"=="y" (
 	echo Installing Powershell Modules...
@@ -63,6 +72,10 @@ if "%ins_omp%"=="y" (
 set /p ins_psprofile=Do you want to install Powershell Profile? (y/n) : 
 if "%ins_psprofile%"=="y" (
 	echo Installing Powershell Profile...
+	if not exist "%USERPROFILE%\Documents\Powershell" mkdir "%USERPROFILE%\Documents\Powershell"
+	if exist "%USERPROFILE%\Documents\Powershell\Microsoft.Powershell_profile.ps1" del "%USERPROFILE%\Documents\Powershell\Microsoft.Powershell_profile.ps1"
+	if exist "%USERPROFILE%\Documents\WindowsPowershell\Microsoft.Powershell_profile.ps1" del "%USERPROFILE%\Documents\WindowsPowershell\Microsoft.Powershell_profile.ps1"
+	if exist "%USERPROFILE%\Documents\Powershell\Microsoft.VSCode_profile.ps1" del "%USERPROFILE%\Documents\Powershell\Microsoft.VSCode_profile.ps1"
 	mklink /H "%USERPROFILE%\Documents\Powershell\Microsoft.Powershell_profile.ps1" "..\Microsoft.Powershell_profile.ps1"
 	mklink /H "%USERPROFILE%\Documents\WindowsPowershell\Microsoft.Powershell_profile.ps1" "..\Microsoft.Powershell_profile.ps1"
 	mklink /H "%USERPROFILE%\Documents\Powershell\Microsoft.VSCode_profile.ps1" "..\Microsoft.Powershell_profile.ps1"
@@ -77,6 +90,7 @@ if "%ins_wtprofile%"=="y" (
 	REM Search for Windows Terminal folder
 	for /D %%G in ("%USERPROFILE%\AppData\Local\Packages\Microsoft.WindowsTerminal*") do (
 		REM Make symbolic link from ../WindowsTerminal_profile.json to settings.json
+		if exist "%%G\LocalState\settings.json" del "%%G\LocalState\settings.json"
 		mklink /H "%%G\LocalState\settings.json" "..\WindowsTerminal_profile.json"
 	)
 	echo Done.
