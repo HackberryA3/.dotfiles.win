@@ -10,35 +10,35 @@ set /p unins_xbox=Do you want to uninstall Xbox (Xbox, XboxGameOverlay)? (y/n) :
 
 if "%unins_util%"=="y" (
 	echo Uninstalling Utilities...
-	powershell -ExecutionPolicy Bypass -File Uninstall_Utility.ps1
+	powershell -ExecutionPolicy RemoteSigned -File Uninstall_Utility.ps1
 	echo Done.
 ) else (
 	echo Skipping Utilities.
 )
 if "%unins_office%"=="y" (
 	echo Uninstalling Office...
-	powershell -ExecutionPolicy Bypass -File Uninstall_Office.ps1
+	powershell -ExecutionPolicy RemoteSigned -File Uninstall_Office.ps1
 	echo Done.
 ) else (
 	echo Skipping Office.
 )
 if "%unins_multimedia%"=="y" (
 	echo Uninstalling Multimedia...
-	powershell -ExecutionPolicy Bypass -File Uninstall_MultimediaViewer.ps1
+	powershell -ExecutionPolicy RemoteSigned -File Uninstall_MultimediaViewer.ps1
 	echo Done.
 ) else (
 	echo Skipping Multimedia.
 )
 if "%unins_entertainment%"=="y" (
 	echo Uninstalling Entertainment...
-	powershell -ExecutionPolicy Bypass -File Uninstall_Entertainment.ps1
+	powershell -ExecutionPolicy RemoteSigned -File Uninstall_Entertainment.ps1
 	echo Done.
 ) else (
 	echo Skipping Entertainment.
 )
 if "%unins_xbox%"=="y" (
 	echo Uninstalling Xbox...
-	powershell -ExecutionPolicy Bypass -File Uninstall_Xbox.ps1
+	powershell -ExecutionPolicy RemoteSigned -File Uninstall_Xbox.ps1
 	echo Done.
 ) else (
 	echo Skipping Xbox.
@@ -56,8 +56,7 @@ if "%ins_ps%"=="y" (
 set /p ins_psmodule=Do you want to install Powershell Modules? (y/n) : 
 if "%ins_psmodule%"=="y" (
 	echo Installing Powershell Modules...
-	powershell -ExecutionPolicy Bypass -File Install_PSModule.ps1
-	pwsh -ExecutionPolicy Bypass -File Install_PSModule.ps1
+	powershell -ExecutionPolicy RemoteSigned -File Install_PSModule.ps1
 	echo Done.
 ) else (
 	echo Skipping Powershell Modules.
@@ -66,7 +65,7 @@ if "%ins_psmodule%"=="y" (
 set /p ins_omp=Do you want to install Oh My Posh? (y/n) : 
 if "%ins_omp%"=="y" (
 	echo Installing Oh My Posh...
-	powershell -ExecutionPolicy Bypass -File Install_OhMyPosh.ps1
+	powershell -ExecutionPolicy RemoteSigned -File Install_OhMyPosh.ps1
 	echo Done.
 ) else (
 	echo Skipping Oh My Posh.
