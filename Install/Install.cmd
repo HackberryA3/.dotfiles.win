@@ -1,5 +1,7 @@
 @echo off
 
+cd /d %~dp0
+
 set /p unins_util=Do you want to uninstall Utilities (Camera, VoiceMemo, Clock)? (y/n) : 
 set /p unins_office=Do you want to uninstall Office (Office, Teams)? (y/n) : 
 set /p unins_multimedia=Do you want to uninstall Multi media viewer (Clipchamp, Photos, Paint)? (y/n) : 
@@ -55,6 +57,7 @@ set /p ins_psmodule=Do you want to install Powershell Modules? (y/n) :
 if "%ins_psmodule%"=="y" (
 	echo Installing Powershell Modules...
 	powershell -ExecutionPolicy Bypass -File Install_PSModule.ps1
+	pwsh -ExecutionPolicy Bypass -File Install_PSModule.ps1
 	echo Done.
 ) else (
 	echo Skipping Powershell Modules.
