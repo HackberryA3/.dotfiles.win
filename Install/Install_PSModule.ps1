@@ -1,3 +1,7 @@
+param (
+	[bool]$ForPWSH = $false
+)
+
 $LaterThan7_2 = ($PSVersionTable.PSVersion.Major -ge 7) -And ($PSVersionTable.PSVersion.Minor -ge 2)
 
 function GetPSGalleryPolicy {
@@ -35,8 +39,10 @@ if ($LaterThan7_2 -And !(Get-Module -ListAvailable -Name CompletionPredictor)) {
 if ($PolicyChanged) { Set-PSRepository -Name PSGallery -InstallationPolicy $PSGalleryPolicy }
 
 # Check pwsh
-try {
-	$env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
-	pwsh.exe -ExecutionPolicy RemoteSigned -File Install_PSModule.ps1
+if ($ForPWSH) {
+	try {
+		$env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
+		pwsh.exe -ExecutionPolicy RemoteSigned -File Install_PSModule.ps1
+	}
+	catch { Write-Host "pwsh does not exist." }
 }
-catch { Write-Host "pwsh does not exist." }

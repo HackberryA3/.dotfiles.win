@@ -56,7 +56,7 @@ if "%ins_ps%"=="y" (
 set /p ins_psmodule=Do you want to install Powershell Modules? (y/n) : 
 if "%ins_psmodule%"=="y" (
 	echo Installing Powershell Modules...
-	powershell -ExecutionPolicy RemoteSigned -File Install_PSModule.ps1
+	powershell -ExecutionPolicy RemoteSigned -File Install_PSModule.ps1 -ForPWSH True
 	echo Done.
 ) else (
 	echo Skipping Powershell Modules.
