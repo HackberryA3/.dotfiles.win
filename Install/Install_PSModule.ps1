@@ -1,5 +1,5 @@
 param (
-	[bool]$ForPWSH = $false
+	[string]$ForPWSH = "False"
 )
 
 $LaterThan7_2 = ($PSVersionTable.PSVersion.Major -ge 7) -And ($PSVersionTable.PSVersion.Minor -ge 2)
@@ -39,7 +39,7 @@ if ($LaterThan7_2 -And !(Get-Module -ListAvailable -Name CompletionPredictor)) {
 if ($PolicyChanged) { Set-PSRepository -Name PSGallery -InstallationPolicy $PSGalleryPolicy }
 
 # Check pwsh
-if ($ForPWSH) {
+if ($ForPWSH -match "(True)|(true)") {
 	try {
 		$env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path", "User")
 		pwsh.exe -ExecutionPolicy RemoteSigned -File Install_PSModule.ps1
