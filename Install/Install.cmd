@@ -2,6 +2,15 @@
 
 cd /d %~dp0
 
+REM Check admin permission//////////////////////////////////////////////////////////////////////////////////////////////
+fltmc >nul 2>&1
+if not %errorLevel% == 0 (
+	echo User does not have admin permission.
+	echo Please run this script as administrator.
+	pause
+	exit /b
+)
+
 REM Cleanup//////////////////////////////////////////////////////////////////////////////////////////////
 choice /C AYN /M "Do you want to cleanup? [A]ll [Y]es [N]o" /N
 set cleanup=%errorlevel%
