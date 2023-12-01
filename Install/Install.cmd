@@ -507,7 +507,7 @@ if "%ins_bitwarden%"=="1" (
 REM Browser//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_chrome%"=="1" (
 	echo Installing Google Chrome...
-	powershell winget install Google.Chrome
+	start powershell winget install Google.Chrome
 	timeout /t 60 /nobreak > NUL
 ) else (
 	echo Skipping Google Chrome.
