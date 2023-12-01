@@ -151,6 +151,7 @@ if "%setup_dirver%"=="1" (
 	set ins_icue=1
 	set ins_razersynapse=1
 	set ins_gjainput=1
+	goto ask_authapp
 ) else if "%setup_dirver%"=="3" (
 	echo Skipping driver setup.
 	goto ask_authapp
@@ -171,6 +172,7 @@ set setup_authapp=%errorlevel%
 if "%setup_authapp%"=="1" (
 	set ins_authy=1
 	set ins_bitwarden=1
+	goto ask_browser
 ) else if "%setup_authapp%"=="3" (
 	echo Skipping authentication app setup.
 	goto ask_browser
@@ -187,6 +189,7 @@ set setup_browser=%errorlevel%
 if "%setup_browser%"=="1" (
 	set ins_chrome=1
 	set ins_firefox=1
+	goto ask_cloud
 ) else if "%setup_browser%"=="3" (
 	echo Skipping browser setup.
 	goto ask_cloud
@@ -204,6 +207,7 @@ if "%setup_cloud%"=="1" (
 	set ins_onedrive=1
 	set ins_dropbox=1
 	set ins_gdrive=1
+	goto ask_development
 ) else if "%setup_cloud%"=="3" (
 	echo Skipping cloud app setup.
 	goto ask_development
@@ -225,6 +229,7 @@ if "%setup_development%"=="1" (
 	set ins_vscode=1
 	set ins_vs=1
 	set ins_vim=1
+	goto ask_programming
 ) else if "%setup_development%"=="3" (
 	echo Skipping development app setup.
 	goto ask_programming
@@ -252,6 +257,7 @@ if "%setup_programming%"=="1" (
 	set node=1
 	set dotnet=1
 	set dotnetV=8
+	goto ask_virtualization
 ) else if "%setup_programming%"=="3" (
 	echo Skipping programming app setup.
 	goto ask_virtualization
@@ -326,6 +332,7 @@ set setup_virtualization=%errorlevel%
 if "%setup_virtualization%"=="1" (
 	set ins_virtualbox=1
 	set ins_docker=1
+	goto ask_office
 ) else if "%setup_virtualization%"=="3" (
 	echo Skipping virtualization app setup.
 	goto ask_office
@@ -344,6 +351,7 @@ if "%setup_office%"=="1" (
 	set ins_onenote=1
 	set ins_teams=1
 	set ins_zoom=1
+	goto ask_creative
 ) else if "%setup_office%"=="3" (
 	echo Skipping office app setup.
 	goto ask_creative
@@ -366,6 +374,7 @@ if "%setup_creative%"=="1" (
 	set ins_blender=1
 	set ins_unity=1
 	set ins_unreal=1
+	goto ask_game
 ) else if "%setup_creative%"=="3" (
 	echo Skipping creative app setup.
 	goto ask_game
@@ -389,6 +398,7 @@ if "%setup_game%"=="1" (
 	set ins_minecraft=1
 	set ins_lol=1
 	set ins_blitz=1
+	goto ask_other
 ) else if "%setup_game%"=="3" (
 	echo Skipping game app setup.
 	goto ask_other
@@ -411,6 +421,7 @@ set setup_other=%errorlevel%
 if "%setup_other%"=="1" (
 	set ins_notion=1
 	set ins_spotify=1
+	goto ask_communication
 ) else if "%setup_other%"=="3" (
 	echo Skipping other app setup.
 	goto ask_communication
@@ -427,6 +438,7 @@ set setup_communication=%errorlevel%
 if "%setup_communication%"=="1" (
 	set ins_line=1
 	set ins_discord=1
+	goto do_app
 ) else if "%setup_communication%"=="3" (
 	echo Skipping communication app setup.
 	goto do_app
@@ -440,28 +452,32 @@ REM Driver//////////////////////////////////////////////////////////////////////
 :do_app
 if "%ins_geforce%"=="1" (
 	echo Installing GeForce Experience...
-	powershell winget install NVIDIA.GeForceExperience
+	start powershell winget install NVIDIA.GeForceExperience
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping GeForce Experience.
 )
 if "%ins_icue%"=="1" (
 	echo Installing iCUE...
-	powershell winget install Corsair.iCUE.4
+	start powershell winget install Corsair.iCUE.4
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping iCUE.
 )
 if "%ins_razersynapse%"=="1" (
 	echo Installing Razer Synapse...
-	powershell winget install RazerInc.RazerInstaller
+	start powershell winget install RazerInc.RazerInstaller
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Razer Synapse.
 )
 if "%ins_gjainput%"=="1" (
 	echo Installing Google Japanese Input...
-	powershell winget install Google.JapaneseIME
+	start powershell winget install Google.JapaneseIME
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Google Japanese Input.
@@ -470,14 +486,16 @@ if "%ins_gjainput%"=="1" (
 REM Authentication//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_authy%"=="1" (
 	echo Installing Authy...
-	powershell winget install Twilio.Authy
+	start powershell winget install Twilio.Authy
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Authy.
 )
 if "%ins_bitwarden%"=="1" (
 	echo Installing Bitwarden...
-	powershell winget install Bitwarden.Bitwarden
+	start powershell winget install Bitwarden.Bitwarden
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Bitwarden.
@@ -486,14 +504,16 @@ if "%ins_bitwarden%"=="1" (
 REM Browser//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_chrome%"=="1" (
 	echo Installing Google Chrome...
-	powershell winget install Google.Chrome
+	start powershell winget install Google.Chrome
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Google Chrome.
 )
 if "%ins_firefox%"=="1" (
 	echo Installing Mozilla Firefox...
-	powershell winget install Mozilla.Firefox
+	start powershell winget install Mozilla.Firefox
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Mozilla Firefox.
@@ -502,21 +522,24 @@ if "%ins_firefox%"=="1" (
 REM Cloud//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_onedrive%"=="1" (
 	echo Installing OneDrive...
-	powershell winget install Microsoft.OneDrive
+	start powershell winget install Microsoft.OneDrive
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping OneDrive.
 )
 if "%ins_dropbox%"=="1" (
 	echo Installing Dropbox...
-	powershell winget install Dropbox.Dropbox
+	start powershell winget install Dropbox.Dropbox
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Dropbox.
 )
 if "%ins_gdrive%"=="1" (
 	echo Installing Google Drive...
-	powershell winget install Google.GoogleDrive
+	start powershell winget install Google.GoogleDrive
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Google Drive.
@@ -524,14 +547,16 @@ if "%ins_gdrive%"=="1" (
 
 if "%ins_git%"=="1" (
 	echo Installing Git...
-	powershell winget install Git.Git
+	start powershell winget install Git.Git
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Git.
 )
 if "%ins_gh%"=="1" (
 	echo Installing Github CLI...
-	powershell winget install GitHub.cli
+	start powershell winget install GitHub.cli
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Github CLI.
@@ -540,21 +565,24 @@ if "%ins_gh%"=="1" (
 REM Development//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_vscode%"=="1" (
 	echo Installing Visual Studio Code...
-	powershell winget install Microsoft.VisualStudioCode
+	start powershell winget install Microsoft.VisualStudioCode
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Visual Studio Code.
 )
 if "%ins_vs%"=="1" (
 	echo Installing Visual Studio...
-	powershell winget install Microsoft.VisualStudio.2022.Community
+	start powershell winget install Microsoft.VisualStudio.2022.Community
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Visual Studio.
 )
 if "%ins_vim%"=="1" (
 	echo Installing Vim...
-	powershell winget install vim.vim
+	start powershell winget install vim.vim
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Vim.
@@ -563,28 +591,32 @@ if "%ins_vim%"=="1" (
 REM Programming//////////////////////////////////////////////////////////////////////////////////////////////
 if "%java%"=="1" (
 	echo Installing Java...
-	powershell winget install Microsoft.OpenJDK.%javaV%
+	start powershell winget install Microsoft.OpenJDK.%javaV%
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Java.
 )
 if "%python%"=="1" (
 	echo Installing Python3...
-	powershell winget install Python.Python.3.%pythonV%
+	start powershell winget install Python.Python.3.%pythonV%
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Python3.
 )
 if "%node%"=="1" (
 	echo Installing Node.js...
-	powershell winget install OpenJS.NodeJS
+	start powershell winget install OpenJS.NodeJS.LTS
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Node.js.
 )
 if "%dotnet%"=="1" (
 	echo Installing .NET...
-	powershell winget install Microsoft.DotNet.SDK.%dotnetV%
+	start powershell winget install Microsoft.DotNet.SDK.%dotnetV%
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping .NET.
@@ -593,14 +625,16 @@ if "%dotnet%"=="1" (
 REM Virtualization//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_virtualbox%"=="1" (
 	echo Installing VirtualBox...
-	powershell winget install Oracle.VirtualBox
+	start powershell winget install Oracle.VirtualBox
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping VirtualBox.
 )
 if "%ins_docker%"=="1" (
 	echo Installing Docker...
-	powershell winget install Docker.DockerDesktop
+	start powershell winget install Docker.DockerDesktop
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Docker.
@@ -610,30 +644,35 @@ REM Office//////////////////////////////////////////////////////////////////////
 if "%ins_office%"=="1" (
 	if "%ins_onenote%"=="1" (
 		echo Installing Microsoft Office with OneNote...
-		powershell winget install Microsoft.Office --override "/configure OfficeConfig/OnlyExcelWordPowerpointOnenote.xml"
+		start powershell winget install Microsoft.Office --override "/configure OfficeConfig/OnlyExcelWordPowerpointOnenote.xml"
+		timeout /t 10 /nobreak > NUL
 		echo Done.
 	) else (
 		echo Installing Microsoft Office...
-		powershell winget install Microsoft.Office --override "/configure OfficeConfig/OnlyExcelWordPowerpoint.xml"
+		start powershell winget install Microsoft.Office --override "/configure OfficeConfig/OnlyExcelWordPowerpoint.xml"
+		timeout /t 10 /nobreak > NUL
 		echo Done.
 	)
 ) else if "%ins_onenote%"=="1" (
 	echo Installing OneNote...
-	powershell winget install Microsoft.Office --override "/configure OfficeConfig/OnlyOnenote.xml"
+	start powershell winget install Microsoft.Office --override "/configure OfficeConfig/OnlyOnenote.xml"
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Microsoft Office and OneNote.
 )
 if "%ins_teams%"=="1" (
 	echo Installing Microsoft Teams...
-	powershell winget install Microsoft.Teams
+	start powershell winget install Microsoft.Teams
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Microsoft Teams.
 )
 if "%ins_zoom%"=="1" (
 	echo Installing Zoom...
-	powershell winget install Zoom.Zoom
+	start powershell winget install Zoom.Zoom
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Zoom.
@@ -642,28 +681,32 @@ if "%ins_zoom%"=="1" (
 REM Creative//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_adobe%"=="1" (
 	echo Installing Adobe Creative Cloud...
-	powershell winget install "Adobe Creative Cloud"
+	start powershell winget install "Adobe Creative Cloud"
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Adobe Creative Cloud.
 )
 if "%ins_blender%"=="1" (
 	echo Installing Blender...
-	powershell winget install BlenderFoundation.Blender
+	start powershell winget install BlenderFoundation.Blender
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Blender.
 )
 if "%ins_unity%"=="1" (
 	echo Installing Unity...
-	powershell winget install Unity.UnityHub
+	start powershell winget install Unity.UnityHub
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Unity.
 )
 if "%ins_unreal%"=="1" (
 	echo Installing Unreal Engine...
-	powershell winget install EpicGames.EpicGamesLauncher
+	start powershell winget install EpicGames.EpicGamesLauncher
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Unreal Engine.
@@ -672,7 +715,8 @@ if "%ins_unreal%"=="1" (
 REM Game//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_steam%"=="1" (
 	echo Installing Steam...
-	powershell winget install Valve.Steam
+	start powershell winget install Valve.Steam
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Steam.
@@ -680,7 +724,8 @@ if "%ins_steam%"=="1" (
 if "%ins_epic%"=="1" (
 	if not "%ins_unreal%"=="1" (
 		echo Installing Unreal Engine...
-		powershell winget install EpicGames.EpicGamesLauncher
+		start powershell winget install EpicGames.EpicGamesLauncher
+		timeout /t 10 /nobreak > NUL
 		echo Done.
 	)
 ) else (
@@ -688,21 +733,24 @@ if "%ins_epic%"=="1" (
 )
 if "%ins_minecraft%"=="1" (
 	echo Installing Minecraft...
-	powershell winget install Mojang.MinecraftLauncher
+	start powershell winget install Mojang.MinecraftLauncher
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Minecraft.
 )
 if "%ins_lol%"=="1" (
 	echo Installing LoL...
-	powershell winget install RiotGames.LeagueOfLegends.JP
+	start powershell winget install RiotGames.LeagueOfLegends.JP
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping LoL.
 )
 if "%ins_blitz%"=="1" (
 	echo Installing Blitz.gg...
-	powershell winget install Blitz.Blitz
+	start powershell winget install Blitz.Blitz
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Blitz.gg.
@@ -711,14 +759,16 @@ if "%ins_blitz%"=="1" (
 REM Other//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_notion%"=="1" (
 	echo Installing Notion...
-	powershell winget install Notion.Notion
+	start powershell winget install Notion.Notion
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Notion.
 )
 if "%ins_spotify%"=="1" (
 	echo Installing Spotify...
-	powershell winget install Spotify.Spotify
+	start powershell winget install Spotify.Spotify
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Spotify.
@@ -727,14 +777,16 @@ if "%ins_spotify%"=="1" (
 REM Communication//////////////////////////////////////////////////////////////////////////////////////////////
 if "%ins_line%"=="1" (
 	echo Installing LINE...
-	powershell winget install LINE.LINE
+	start powershell winget install LINE.LINE
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping LINE.
 )
 if "%ins_discord%"=="1" (
 	echo Installing Discord...
-	powershell winget install Discord.Discord
+	start powershell winget install Discord.Discord
+	timeout /t 10 /nobreak > NUL
 	echo Done.
 ) else (
 	echo Skipping Discord.
