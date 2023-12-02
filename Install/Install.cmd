@@ -6,9 +6,8 @@ REM Check admin permission//////////////////////////////////////////////////////
 fltmc >nul 2>&1
 if not %errorLevel% == 0 (
 	echo User does not have admin permission.
-	echo Please run this script as administrator.
+	echo You can install apps full automatically by running this script as admin (except for Spotify).
 	pause
-	exit /b
 )
 
 REM Cleanup//////////////////////////////////////////////////////////////////////////////////////////////
