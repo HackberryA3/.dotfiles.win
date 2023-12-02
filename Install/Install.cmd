@@ -152,13 +152,14 @@ if "%ins_wtprofile%"=="1" (
 
 REM AskApp//////////////////////////////////////////////////////////////////////////////////////////////
 :ask_driver
-choice /C AYN /M "Do you want to install drivers? (GeForce, iCUE, Razer, GoogleJpaneseInput) [A]ll [Y]es [N]o" /N
+choice /C AYN /M "Do you want to install drivers? (GeForce, iCUE, Razer, GoogleJpaneseInput, Wacom) [A]ll [Y]es [N]o" /N
 set setup_dirver=%errorlevel%
 if "%setup_dirver%"=="1" (
 	set ins_geforce=1
 	set ins_icue=1
 	set ins_razersynapse=1
 	set ins_gjainput=1
+	set ins_wacom=1
 	goto ask_authapp
 ) else if "%setup_dirver%"=="3" (
 	echo Skipping driver setup.
@@ -173,6 +174,8 @@ choice /C YN /M "Do you want to install Razer Synapse?"
 set ins_razersynapse=%errorlevel%
 choice /C YN /M "Do you want to install Google Japanese Input?"
 set ins_gjainput=%errorlevel%
+choice /C YN /M "Do you want to install Wacom Tablet?"
+set ins_wacom=%errorlevel%
 
 :ask_authapp
 choice /C AYN /M "Do you want to install authentication apps? (Authy, Bitwarden) [A]ll [Y]es [N]o" /N
@@ -485,6 +488,13 @@ if "%ins_gjainput%"=="1" (
 	echo Done.
 ) else (
 	echo Skipping Google Japanese Input.
+)
+if "%ins_wacom%"=="1" (
+	echo Installing Wacom Tablet...
+	powershell winget install Wacom.WacomTabletDriver
+	echo Done.
+) else (
+	echo Skipping Wacom Tablet.
 )
 
 REM Authentication//////////////////////////////////////////////////////////////////////////////////////////////
